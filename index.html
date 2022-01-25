@@ -7,95 +7,66 @@
     <meta name="description" content="Une description de la page" />
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="ressources/meteo-icon.png" />
     <script src="main.js" defer></script>
   </head>
   <body>
     <!--premier bloc avec la ville meteo du jours et infos API-->
-    <div class="first-block">
-      <h1>Aujourd'hui</h1>
-    </div>
-    <!--blocs avec la meteo des différents moments de la journéé-->
-    <div class="along-day">
-      <div class="moment-of-the-day">
-        <p>Début de Matinnée</p>
+    <header>
+      <div class="header">
+        <h1>Aujourd'hui</h1>
+        <p id="date_heure">date | heure</p>
+        <p>température avec icon</p>
       </div>
-      <div class="moment-of-the-day">
-        <p>Matin</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Début Après-midi</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Après-midi</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Début de soirée</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-      <div class="moment-of-the-day">
-        <p>Nuit</p>
-      </div>
-    </div>
-    <!--rectangles -->
-    <div class="">
-      <div class=""></div>
-      <div class=""></div>
-      <div class=""></div>
-      <div class=""></div>
-      <div class=""></div>
-    </div>
+    </header>
+    <main>
+      <sections class="hours" id="hours">
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+        <figure></figure>
+      </sections>
+      <section class="days" id="days">
+        <div class="day">
+          <p>J+1</p>
+        </div>
+        <div class="day">
+          <p>J+2</p>
+        </div>
+        <div class="day">
+          <p>J+3</p>
+        </div>
+        <div class="day">
+          <p>J+4</p>
+        </div>
+        <div class="day">
+          <p>J+5</p>
+        </div>
+        <div class="day">
+          <p>J+6</p>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

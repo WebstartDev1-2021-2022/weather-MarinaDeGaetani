@@ -1,34 +1,63 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Raleway:wght@600&display=swap");
-
-html {
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Raleway:wght@600&display=swap");
 body {
+  background: url(ressources/day.jpg);
   font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 300;
-  color: whitesmoke;
-}
-
-.first-block {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 30px;
-  border: rgb(37, 36, 36) solid 1px;
-}
-
-.along-day {
-  display: flex;
-}
-
-.along-day .moment-of-the-day {
-  min-height: 150px;
-  width: 150px;
   font-size: 14px;
+  font-weight: 300;
+}
+
+.hours {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  overflow: scroll;
+  margin-bottom: 20px;
+  height: 130px;
+  scroll-snap-type: x mandatory;
+  & > figure {
+    margin-block-start: 10px;
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    background-color: whitesmoke;
+    flex-shrink: 0;
+    border-radius: 9px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    scroll-snap-align: start;
+  }
+}
+header > .header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 350px;
+}
+
+h1 {
   margin: 10px;
-  border: solid 1px rgb(37, 36, 36);
+  text-align: center;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+p {
+  text-align: center;
+  margin: 10px;
+}
+
+.days > .day {
+  min-width: 320px;
+  min-height: 70px;
+  background-color: whitesmoke;
+  border-radius: 9px;
+  margin: 25px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.days > .day > p {
+  font-weight: 400;
+  padding-top: 10px;
+  margin: 10px;
+  text-align: start;
 }
