@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Raleway:wght@600&display=swap");
+
+html {
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: whitesmoke;
+}
+
+.first-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+  border: rgb(37, 36, 36) solid 1px;
+}
+
+.along-day {
+  display: flex;
+}
+
+.along-day .moment-of-the-day {
+  min-height: 150px;
+  width: 150px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+  border: solid 1px rgb(37, 36, 36);
+}
