@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Raleway:wght@600&display=swap");
 body {
-  background: url(ressources/day.jpg);
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: 300;
+  color: black;
 }
 
 .hours {
@@ -50,6 +50,32 @@ header > .header {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+img.logo-meteo {
+  height: 200px;
+  width: 200px;
+}
+
+figure {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+img.logo-meteo-bis {
+  height: 40px;
+  width: 40px;
 }
 
 h1 {
@@ -107,9 +133,13 @@ p {
   font-weight: 400;
   text-align: center;
   margin: 10px;
+  color: black;
 }
 
 .days > .day {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   min-width: 320px;
   min-height: 70px;
   background-color: whitesmoke;
@@ -117,6 +147,16 @@ p {
   margin: 25px 20px;
   -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .days > .day > p {
