@@ -59,7 +59,7 @@ function AppelAPI(long, lat) {
       let heureActuelle = new Date().getHours();
 
       for (let i = 0; i < heure.length; i++) {
-        let heureIncr = heureActuelle + i;
+        let heureIncr = heureActuelle + i * 1;
 
         if (heureIncr > 24) {
           heure[i].innerText = `${heureIncr - 24} h`;
@@ -73,16 +73,19 @@ function AppelAPI(long, lat) {
       // temperatures par tranche de 1h
       for (let j = 0; j < temperatureHeures.length; j++) {
         temperatureHeures[j].innerText = `${Math.trunc(
-          resultatsAPI.hourly[j + 1].temp
+          resultatsAPI.hourly[j * 1].temp
         )}°`;
       }
 
+      debugger;
+
+      // Reste de la semaine
       // Trois premieres lettres des jours
 
       for (let k = 0; k < tabJoursEnOdre.length; k++) {
         joursDiv[k].innerText = tabJoursEnOdre[k].slice(0, 3);
       }
-      //console.log(joursDiv);
+      console.log(joursDiv);
 
       //Temp par jours
 
@@ -141,3 +144,7 @@ function AppelAPI(long, lat) {
 // console.log(data);
 //   } catch (error) {
 //     console.error("Erreur");
+//
+// Requête HTTP 2 en 1 (requête concurrentes):
+//
+//
