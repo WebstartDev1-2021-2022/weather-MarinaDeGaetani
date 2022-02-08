@@ -3,13 +3,14 @@ import tabJoursEnOdre from "./scripts/gestionTemps.js";
 //Ajout des constantes :
 const CLEAPI = "4c398198a97ce519dfc543aae27c25f4";
 let resultatsAPI;
+
 const temps = document.querySelector(".temps");
 const temperature = document.querySelector(".temperature");
 const localisation = document.querySelector(".localisation");
 const heure = document.querySelectorAll(".heure-act");
 const temperatureHeures = document.querySelectorAll(".temperature-heures");
 const joursDiv = document.querySelectorAll(".jour-a-venir");
-const tempJoursDiv = document.querySelectorAll(".temperature-a-venir");
+const tempJoursDiv = document.querySelectorAll(".temperature-jour");
 const imgIcone = document.querySelector(".logo-meteo");
 const imgIconesPrev = document.querySelectorAll(".logo-meteo-bis");
 const imgBackground = document.querySelectorAll(".fond-ecran");
@@ -40,7 +41,7 @@ function AppelAPI(long, lat) {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      //console.log(data);
 
       resultatsAPI = data;
 
@@ -58,7 +59,7 @@ function AppelAPI(long, lat) {
       let heureActuelle = new Date().getHours();
 
       for (let i = 0; i < heure.length; i++) {
-        let heureIncr = heureActuelle + i * 1;
+        let heureIncr = heureActuelle + i;
 
         if (heureIncr > 24) {
           heure[i].innerText = `${heureIncr - 24} h`;
@@ -72,7 +73,7 @@ function AppelAPI(long, lat) {
       // temperatures par tranche de 1h
       for (let j = 0; j < temperatureHeures.length; j++) {
         temperatureHeures[j].innerText = `${Math.trunc(
-          resultatsAPI.hourly[j * 1].temp
+          resultatsAPI.hourly[j + 1].temp
         )}°`;
       }
 
@@ -81,6 +82,7 @@ function AppelAPI(long, lat) {
       for (let k = 0; k < tabJoursEnOdre.length; k++) {
         joursDiv[k].innerText = tabJoursEnOdre[k].slice(0, 3);
       }
+      //console.log(joursDiv);
 
       //Temp par jours
 
@@ -93,28 +95,49 @@ function AppelAPI(long, lat) {
       // Icon meteo dynamique
 
       if (heureActuelle >= 6 && heureActuelle < 21) {
-        imgIcone.src = `ressources/jour/${resultatsAPI.current.weather[0].icon}.svg`;
+        imgIcone.src = `./ressources/jour/${resultatsAPI.current.weather[0].icon}.svg`;
       } else {
-        imgIcone.src = `ressources/nuit/${resultatsAPI.current.weather[0].icon}.svg`;
+        imgIcone.src = `./ressources/nuit/${resultatsAPI.current.weather[0].icon}.svg`;
       }
 
       // Icon-bis meteo dynamique
 
       if (heureActuelle >= 6 && heureActuelle < 21) {
-        imgIconesPrev.src = `ressources/jour/${resultatsAPI.current.weather[0].icon}.svg`;
+        imgIconesPrev.src = `./ressources/jour/${resultatsAPI.current.weather[0].icon}.svg`;
       } else {
-        imgIconesPrev.src = `ressources/nuit/${resultatsAPI.current.weather[0].icon}.svg`;
+        imgIconesPrev.src = `./ressources/nuit/${resultatsAPI.current.weather[0].icon}.svg`;
       }
 
       // fond appli meteo dynamique
-
-      if (heureActuelle >= 6 && heureActuelle < 21) {
-        imgBackground.src = `./ressources/fond-jour/${resultatsAPI.current.weather[0].background}.svg`;
-      } else {
-        imgBackground.src = `./ressources/fond-nuit/${resultatsAPI.current.weather[0].background}.svg`;
-      }
     });
 }
 
-//autre manière de faire :
+// autre manière de faire :
+// Cours du prof :
 // function getWeatherOf = (lat, lon) => {}
+// const temps = document.querySelector("temps");
+// const temperature = document.querySelector("temperature");
+// const localisation = document.querySelector("localisation"); //
+// const dateNow = document.querySelector(".date");
+//
+// Traiter les erreurs de navigation geolocalisation.       GetCurrencisePosition
+// const handleGetCurrentPositionError = (error) => {
+//   alert("La géolocalisation ne fonctionne pas, vérifirez vos paramètres");
+// };
+//
+// Requête fetch
+// const getWeatherOf = async (position) => {
+//   try {
+//     const lat = position.coords.latitutde;
+//     const lon = position.coords.longitude;
+//     CallAPI = (lat, lon);
+//     const res = await fetch(
+//       https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=metric&lang=fr&appid=e5b64fa8a92d01f6f8fc1d823e6fa138
+//     );
+//     const data = await res.json();
+//
+// console.log(data);
+//
+// console.log(data);
+//   } catch (error) {
+//     console.error("Erreur");
