@@ -2,7 +2,7 @@ import tabJoursEnOdre from "./scripts/gestionTemps.js";
 
 //Ajout des constantes :
 const CLEAPI = "4c398198a97ce519dfc543aae27c25f4";
-let resultatsAPI;
+let weatherData;
 
 const temps = document.querySelector(".temps");
 const temperature = document.querySelector(".temperature");
@@ -20,9 +20,9 @@ if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       // console.log(position);
-      let long = position.coords.longitude;
-      let lat = position.coords.latitude;
-      AppelAPI(long, lat);
+      let longitude = position.coords.longitude;
+      let lattitude = position.coords.latitude;
+      AppelAPI(longitude, lattitude);
     },
     () => {
       alert(
@@ -33,86 +33,100 @@ if (navigator.geolocation) {
 }
 
 //Requête fetch :
-function AppelAPI(long, lat) {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude={minutely&units=metric&lang=fr&appid=${CLEAPI}`
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      //console.log(data);
+function AppelAPI(longitude, lattitude) {
+  try {
+    const allPromise = Promise.all([
+      fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lattitude}&lon=${longitude}&exclude={minutely&units=metric&lang=fr&appid=${CLEAPI}`
+      ),
+      fetch(
+        `https://api-adresse.data.gouv.fr/reverse/?lon=${longitude}&lat=${lattitude}`
+      ),
+    ]);
 
-      resultatsAPI = data;
+    const [weatherResult, cityResult] = await allPromise;
 
-      //affichage du temps actuel
-      temps.innerText = resultatsAPI.current.weather[0].description;
+    const weatherData = await weatherResult.json();
 
-      //affichage température actuel
-      temperature.innerText = `${Math.trunc(resultatsAPI.current.temp)}°`;
+    const cityData = await cityResult.json();
 
-      //afficher la localisation
-      localisation.innerText = resultatsAPI.timezone;
+    weatherData = data;
 
-      //les heures, par tranche de 1 avec leurs temperature
+    //affichage du temps actuel
+    temps.innerText = weatherData.current.weather[0].description;
 
-      let heureActuelle = new Date().getHours();
+    //affichage température actuel
+    temperature.innerText = `${Math.trunc(weatherData.current.temp)}°`;
 
-      for (let i = 0; i < heure.length; i++) {
-        let heureIncr = heureActuelle + i * 1;
+    //afficher la localisation
+    localisation.innerText = weatherData.timezone;
 
-        if (heureIncr > 24) {
-          heure[i].innerText = `${heureIncr - 24} h`;
-        } else if (heureIncr === 24) {
-          heure[i].innerText = "00 h";
-        } else {
-          heure[i].innerText = `${heureIncr} h`;
-        }
-      }
+    //les heures, par tranche de 1 avec leurs temperature
 
-      // temperatures par tranche de 1h
-      for (let j = 0; j < temperatureHeures.length; j++) {
-        temperatureHeures[j].innerText = `${Math.trunc(
-          resultatsAPI.hourly[j * 1].temp
-        )}°`;
-      }
+    let heureActuelle = new Date().getHours();
 
-      debugger;
+    for (let i = 0; i < heure.length; i++) {
+      let heureIncr = heureActuelle + i * 1;
 
-      // Reste de la semaine
-      // Trois premieres lettres des jours
-
-      for (let k = 0; k < tabJoursEnOdre.length; k++) {
-        joursDiv[k].innerText = tabJoursEnOdre[k].slice(0, 3);
-      }
-      console.log(joursDiv);
-
-      //Temp par jours
-
-      for (let m = 0; m < 7; m++) {
-        tempJoursDiv[m].innerText = `${Math.trunc(
-          resultatsAPI.daily[m + 1].temp.day
-        )}°`;
-      }
-
-      // Icon meteo dynamique
-
-      if (heureActuelle >= 6 && heureActuelle < 21) {
-        imgIcone.src = `./ressources/jour/${resultatsAPI.current.weather[0].icon}.svg`;
+      if (heureIncr > 24) {
+        heure[i].innerText = `${heureIncr - 24} h`;
+      } else if (heureIncr === 24) {
+        heure[i].innerText = "00 h";
       } else {
-        imgIcone.src = `./ressources/nuit/${resultatsAPI.current.weather[0].icon}.svg`;
+        heure[i].innerText = `${heureIncr} h`;
       }
+    }
 
-      // Icon-bis meteo dynamique
+    // temperatures par tranche de 1h
+    for (let j = 0; j < temperatureHeures.length; j++) {
+      temperatureHeures[j].innerText = `${Math.trunc(
+        weatherData.hourly[j * 1].temp
+      )}°`;
+    }
+    //debugger;
 
-      if (heureActuelle >= 6 && heureActuelle < 21) {
-        imgIconesPrev.src = `./ressources/jour/${resultatsAPI.current.weather[0].icon}.svg`;
-      } else {
-        imgIconesPrev.src = `./ressources/nuit/${resultatsAPI.current.weather[0].icon}.svg`;
-      }
+    // Trois premieres lettres des jours
 
-      // fond appli meteo dynamique
-    });
+    for (let k = 0; k < tabJoursEnOdre.length; k++) {
+      joursDiv[k].innerText = tabJoursEnOdre[k].slice(0, 3);
+    }
+    console.log(joursDiv);
+
+    //Temp par jours
+
+    for (let m = 0; m < 7; m++) {
+      tempJoursDiv[m].innerText = `${Math.trunc(
+        weatherData.daily[m + 1].temp.day
+      )}°`;
+    }
+
+    // Icon meteo dynamique
+
+    if (heureActuelle >= 6 && heureActuelle < 21) {
+      imgIcone.src = `./ressources/jour/${weatherData.current.weather[0].icon}.svg`;
+    } else {
+      imgIcone.src = `./ressources/nuit/${weatherData.current.weather[0].icon}.svg`;
+    }
+
+    // Icon-bis meteo dynamique
+
+    if (heureActuelle >= 6 && heureActuelle < 21) {
+      imgIconesPrev.src = `./ressources/jour/${weatherData.current.weather[0].icon}.svg`;
+    } else {
+      imgIconesPrev.src = `./ressources/nuit/${weatherData.current.weather[0].icon}.svg`;
+    }
+
+    // fond appli meteo dynamique
+    if (heureActuelle >= 5 && heureActuelle < 8) {
+      imgBackground.src = `./ressources/fond-jour/sunrise.jpg`;
+    } else if (heureActuelle >= 8 && heureActuelle < 21) {
+      imgBackground.src = `./ressources/fond-day/day.jpg`;
+    } else {
+      imgBackground.src = `./ressources/fond-nuit/illustartion-nuit.jpg`;
+    }
+  } catch (error) {
+    console.error("erreur dans le trycatch :", error);
+  }
 }
 
 // autre manière de faire :
