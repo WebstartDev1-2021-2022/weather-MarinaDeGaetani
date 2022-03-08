@@ -2,7 +2,6 @@ import tabJoursEnOdre from "./scripts/gestionTemps.js";
 
 //Ajout des constantes :
 const CLEAPI = "4c398198a97ce519dfc543aae27c25f4";
-let weatherData;
 
 const temps = document.querySelector(".temps");
 const temperature = document.querySelector(".temperature");
@@ -12,7 +11,8 @@ const temperatureHeures = document.querySelectorAll(".temperature-heures");
 const joursDiv = document.querySelectorAll(".jour-a-venir");
 const tempJoursDiv = document.querySelectorAll(".temperature-jour");
 const imgIcone = document.querySelector(".logo-meteo");
-const imgIconesPrev = document.querySelectorAll(".logo-meteo-bis");
+const imgIconesHours = document.querySelectorAll(".logo-meteo-hourly");
+const imgIconesDaily = document.querySelectorAll(".logo-meteo-daily");
 const imgBackground = document.querySelectorAll(".fond-ecran");
 
 //demande la position
@@ -33,7 +33,7 @@ if (navigator.geolocation) {
 }
 
 //Requête fetch :
-function AppelAPI(longitude, lattitude) {
+async function AppelAPI(longitude, lattitude) {
   try {
     const allPromise = Promise.all([
       fetch(
@@ -50,8 +50,6 @@ function AppelAPI(longitude, lattitude) {
 
     const cityData = await cityResult.json();
 
-    weatherData = data;
-
     //affichage du temps actuel
     temps.innerText = weatherData.current.weather[0].description;
 
@@ -61,12 +59,12 @@ function AppelAPI(longitude, lattitude) {
     //afficher la localisation
     localisation.innerText = weatherData.timezone;
 
-    //les heures, par tranche de 1 avec leurs temperature
+    //les heures, par tranche de 1 avec leurs temperatures
 
     let heureActuelle = new Date().getHours();
 
     for (let i = 0; i < heure.length; i++) {
-      let heureIncr = heureActuelle + i * 1;
+      let heureIncr = heureActuelle + i;
 
       if (heureIncr > 24) {
         heure[i].innerText = `${heureIncr - 24} h`;
@@ -86,15 +84,15 @@ function AppelAPI(longitude, lattitude) {
     //debugger;
 
     // Trois premieres lettres des jours
-
-    for (let k = 0; k < tabJoursEnOdre.length; k++) {
+    for (let k = 0; k < tabJoursEnOdre.length - 1; k++) {
+      //console.log(k, joursDiv[k]);
       joursDiv[k].innerText = tabJoursEnOdre[k].slice(0, 3);
     }
-    console.log(joursDiv);
 
     //Temp par jours
 
-    for (let m = 0; m < 7; m++) {
+    for (let m = 0; m < 6; m++) {
+      //console.log(tempJoursDiv[m]);
       tempJoursDiv[m].innerText = `${Math.trunc(
         weatherData.daily[m + 1].temp.day
       )}°`;
@@ -103,62 +101,37 @@ function AppelAPI(longitude, lattitude) {
     // Icon meteo dynamique
 
     if (heureActuelle >= 6 && heureActuelle < 21) {
+      console.log(imgIcone);
       imgIcone.src = `./ressources/jour/${weatherData.current.weather[0].icon}.svg`;
     } else {
       imgIcone.src = `./ressources/nuit/${weatherData.current.weather[0].icon}.svg`;
     }
 
-    // Icon-bis meteo dynamique
+    // Icon meteo dynamique par heure
 
     if (heureActuelle >= 6 && heureActuelle < 21) {
-      imgIconesPrev.src = `./ressources/jour/${weatherData.current.weather[0].icon}.svg`;
+      imgIconesHours.src = `./ressources/jour/${weatherData.hourly.weather[0].icon}.svg`;
     } else {
-      imgIconesPrev.src = `./ressources/nuit/${weatherData.current.weather[0].icon}.svg`;
+      imgIconesHours.src = `./ressources/nuit/${weatherData.hourly.weather[0].icon}.svg`;
+    }
+
+    // Icon meteo dynamique par jours
+
+    if (heureActuelle >= 6 && heureActuelle < 21) {
+      imgIconesDaily.src = `./ressources/jour/${weatherData.daily.weather[0].icon}.svg`;
+    } else {
+      imgIconesDaily.src = `./ressources/nuit/${weatherData.daily.weather[0].icon}.svg`;
     }
 
     // fond appli meteo dynamique
-    if (heureActuelle >= 5 && heureActuelle < 8) {
-      imgBackground.src = `./ressources/fond-jour/sunrise.jpg`;
-    } else if (heureActuelle >= 8 && heureActuelle < 21) {
-      imgBackground.src = `./ressources/fond-day/day.jpg`;
-    } else {
-      imgBackground.src = `./ressources/fond-nuit/illustartion-nuit.jpg`;
-    }
+    //if (heureActuelle >= 5 && heureActuelle < 8) {
+    //  imgBackground.src = `./ressources/fond-jour/sunrise.jpg`;
+    //} else if (heureActuelle >= 8 && heureActuelle < 21) {
+    //  imgBackground.src = `./ressources/fond-day/day.jpg`;
+    //} else {
+    //  imgBackground.src = `./ressources/fond-nuit/illustartion-nuit.jpg`;
+    //}
   } catch (error) {
     console.error("erreur dans le trycatch :", error);
   }
 }
-
-// autre manière de faire :
-// Cours du prof :
-// function getWeatherOf = (lat, lon) => {}
-// const temps = document.querySelector("temps");
-// const temperature = document.querySelector("temperature");
-// const localisation = document.querySelector("localisation"); //
-// const dateNow = document.querySelector(".date");
-//
-// Traiter les erreurs de navigation geolocalisation.       GetCurrencisePosition
-// const handleGetCurrentPositionError = (error) => {
-//   alert("La géolocalisation ne fonctionne pas, vérifirez vos paramètres");
-// };
-//
-// Requête fetch
-// const getWeatherOf = async (position) => {
-//   try {
-//     const lat = position.coords.latitutde;
-//     const lon = position.coords.longitude;
-//     CallAPI = (lat, lon);
-//     const res = await fetch(
-//       https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=metric&lang=fr&appid=e5b64fa8a92d01f6f8fc1d823e6fa138
-//     );
-//     const data = await res.json();
-//
-// console.log(data);
-//
-// console.log(data);
-//   } catch (error) {
-//     console.error("Erreur");
-//
-// Requête HTTP 2 en 1 (requête concurrentes):
-//
-//
