@@ -11,174 +11,316 @@
   </head>
   <script type="module" src="main.js"></script>
   <body>
-    <header>
-      <h1>Aujourd'hui</h1>
-      <div class="header">
-        <div class="block-logo">
-          <img src="" alt="icone du temps qu'il fait" class="logo-meteo" />
-        </div>
-        <div class="block-info">
-          <p class="temps"></p>
-          <p class="localisation"></p>
-          <p class="temperature"></p>
+    <div class="content">
+      <div class="title">Weather App</div>
+      <div class="loading">
+        <h1>En cours de chargement ...</h1>
+        <div class="lds-default">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
-    </header>
-    <main>
-      <sections class="hours">
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-        <figure>
-          <p class="heure-act"></p>
-          <p class="temperature-heures"></p>
-          <img src="" alt="" class="logo-meteo-hourly" />
-        </figure>
-      </sections>
-      <section class="days" id="days">
-        <div class="day">
-          <p class="jour-a-venir"></p>
-          <p class="temperature-jour"></p>
-          <img src="" alt="" class="logo-meteo-daily" />
+    </div>
+    <template>
+      <header>
+        <h1>Aujourd'hui</h1>
+        <div class="header">
+          <div class="block-logo">
+            <img src="" alt="icone du temps qu'il fait" class="logo-meteo" />
+          </div>
+          <div class="block-info">
+            <p class="temps"></p>
+            <p class="localisation"></p>
+            <p class="temperature"></p>
+          </div>
         </div>
-        <div class="day">
-          <p class="jour-a-venir"></p>
-          <p class="temperature-jour"></p>
-          <img src="" alt="" class="logo-meteo-daily" />
-        </div>
-        <div class="day">
-          <p class="jour-a-venir"></p>
-          <p class="temperature-jour"></p>
-          <img src="" alt="" class="logo-meteo-daily" />
-        </div>
-        <div class="day">
-          <p class="jour-a-venir"></p>
-          <p class="temperature-jour"></p>
-          <img src="" alt="" class="logo-meteo-daily" />
-        </div>
-        <div class="day">
-          <p class="jour-a-venir"></p>
-          <p class="temperature-jour"></p>
-          <img src="" alt="" class="logo-meteo-daily" />
-        </div>
-        <div class="day">
-          <p class="jour-a-venir"></p>
-          <p class="temperature-jour"></p>
-          <img src="" alt="" class="logo-meteo-daily" />
-        </div>
-      </section>
-    </main>
+      </header>
+      <main>
+        <sections class="hours">
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+          <figure>
+            <p class="heure-act"></p>
+            <p class="temperature-heures"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-hourly"
+            />
+          </figure>
+        </sections>
+        <section class="days" id="days">
+          <div class="day">
+            <p class="jour-a-venir"></p>
+            <p class="temperature-jour"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-daily"
+            />
+          </div>
+          <div class="day">
+            <p class="jour-a-venir"></p>
+            <p class="temperature-jour"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-daily"
+            />
+          </div>
+          <div class="day">
+            <p class="jour-a-venir"></p>
+            <p class="temperature-jour"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-daily"
+            />
+          </div>
+          <div class="day">
+            <p class="jour-a-venir"></p>
+            <p class="temperature-jour"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-daily"
+            />
+          </div>
+          <div class="day">
+            <p class="jour-a-venir"></p>
+            <p class="temperature-jour"></p>
+            <img
+              src="ressources/jour/10d.svg"
+              alt=""
+              class="logo-meteo-daily"
+            />
+          </div>
+          <div class="day">
+            <p class="jour-a-venir"></p>
+            <p class="temperature-jour"></p>
+            <img
+              src="ressources/jour/09d.svg"
+              alt=""
+              class="logo-meteo-daily"
+            />
+          </div>
+        </section>
+      </main>
+    </template>
   </body>
 </html>

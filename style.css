@@ -17,6 +17,7 @@ body {
   overflow: scroll;
   -ms-scroll-snap-type: x mandatory;
       scroll-snap-type: x mandatory;
+  scrollbar-base-color: whitesmoke;
   margin-bottom: 20px;
 }
 
@@ -73,13 +74,14 @@ figure {
 }
 
 img.logo-meteo-hourly {
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
 }
 
 img.logo-meteo-daily {
-  height: 40px;
-  width: 40px;
+  margin-left: 10px;
+  height: 60px;
+  width: 60px;
 }
 
 h1 {
@@ -138,6 +140,10 @@ p {
   text-align: center;
   margin: 10px;
   color: black;
+}
+
+p.temperature-heures {
+  margin: 0;
 }
 
 .days > .day {
