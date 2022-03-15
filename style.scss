@@ -125,6 +125,7 @@ p.temperature-heures {
 }
 
 // Page de chargement
+
 .lds-default {
   display: inline-block;
   position: relative;
@@ -137,7 +138,7 @@ p.temperature-heures {
   position: absolute;
   width: 6px;
   height: 6px;
-  background: $bleu_fonce;
+  background: rgb(141, 222, 255);
   border-radius: 50%;
   animation: lds-default 1.2s linear infinite;
 }
