@@ -3,17 +3,8 @@ import tabJoursEnOdre from "./scripts/gestionTemps.js";
 //Ajout des constantes :
 const CLEAPI = "4c398198a97ce519dfc543aae27c25f4";
 
-const temps = document.querySelector(".temps");
-const temperature = document.querySelector(".temperature");
-const localisation = document.querySelector(".localisation");
-const heure = document.querySelectorAll(".heure-act");
-const temperatureHeures = document.querySelectorAll(".temperature-heures");
-const joursDiv = document.querySelectorAll(".jour-a-venir");
-const tempJoursDiv = document.querySelectorAll(".temperature-jour");
-const imgIcone = document.querySelector(".logo-meteo");
-const imgIconesHours = document.querySelectorAll(".logo-meteo-hourly");
-const imgIconesDaily = document.querySelectorAll(".logo-meteo-daily");
-const imgBackground = document.querySelectorAll(".fond-ecran");
+const main = document.querySelector("body");
+const template = document.querySelector("template");
 
 //demande la position
 if (navigator.geolocation) {
@@ -50,6 +41,27 @@ async function AppelAPI(longitude, lattitude) {
 
     const cityData = await cityResult.json();
 
+    // cloner le template
+    const templateClone = template.content.cloneNode(true);
+
+    // Accéder aux nœuds du template
+    const temps = templateClone.querySelector(".temps");
+    const temperature = templateClone.querySelector(".temperature");
+    const localisation = templateClone.querySelector(".localisation");
+    const heureActuelle = templateClone.querySelectorAll(".heure-act");
+    const temperatureHeures = templateClone.querySelectorAll(
+      ".temperature-heures"
+    );
+    const joursDiv = templateClone.querySelectorAll(".jour-a-venir");
+    const tempJoursDiv = templateClone.querySelectorAll(".temperature-jour");
+    const imgIcone = templateClone.querySelector(".logo-meteo");
+    const imgIconesHours = templateClone.querySelectorAll(".logo-meteo-hourly");
+    const imgIconesDaily = templateClone.querySelectorAll(".logo-meteo-daily");
+
+    //icone jour et nuits
+    //const day = ;
+    //const last_element = day[day.length - 1];
+
     //affichage du temps actuel
     temps.innerText = weatherData.current.weather[0].description;
 
@@ -59,69 +71,94 @@ async function AppelAPI(longitude, lattitude) {
     //afficher la localisation
     localisation.innerText = weatherData.timezone;
 
+    //afficher l'icone
+    imgIcone.src = `./ressources/jour/${weatherData.current.weather[0].icon}.svg`;
+
     //les heures, par tranche de 1 avec leurs temperatures
-
-    let heureActuelle = new Date().getHours();
-
-    for (let i = 0; i < heure.length; i++) {
-      let heureIncr = heureActuelle + i;
-
-      if (heureIncr > 24) {
-        heure[i].innerText = `${heureIncr - 24} h`;
-      } else if (heureIncr === 24) {
-        heure[i].innerText = "00 h";
-      } else {
-        heure[i].innerText = `${heureIncr} h`;
-      }
+    // for (const [index, hourly] of weatherData.hourly.entries()) {
+    for (let index = 0; index < 24; index++) {
+      // Récupérer heure, température et icône
+      const { dt, temp, weather } = weatherData.hourly[index];
+      const heure = new Date(dt * 1000).getHours();
+      const { icon } = weather[0];
+      //debugger;
+      //console.log(imgIconesHours[index]);
+      heureActuelle[index].innerText = `${heure} h`;
+      temperatureHeures[index].innerText = `${Math.trunc(temp)}°`;
+      imgIconesHours[index].src = `./ressources/jour/${icon}.svg`;
     }
 
-    // temperatures par tranche de 1h
-    for (let j = 0; j < temperatureHeures.length; j++) {
-      temperatureHeures[j].innerText = `${Math.trunc(
-        weatherData.hourly[j * 1].temp
-      )}°`;
-    }
-    //debugger;
+    // //Temp par jours
+    for (let index = 0; index < 6; index++) {
+      const { temp, weather } = weatherData.daily[index];
+      const { icon } = weather[0];
 
-    // Trois premieres lettres des jours
-    for (let k = 0; k < tabJoursEnOdre.length - 1; k++) {
-      //console.log(k, joursDiv[k]);
-      joursDiv[k].innerText = tabJoursEnOdre[k].slice(0, 3);
+      joursDiv[index].innerText = tabJoursEnOdre[index].slice(0, 3);
+      tempJoursDiv[index].innerText = `${Math.trunc(temp.day)}°`;
+      imgIconesDaily[index].src = `./ressources/jour/${icon}.svg`;
     }
 
-    //Temp par jours
+    // let heureActuelle = new Date().getHours()
 
-    for (let m = 0; m < 6; m++) {
-      //console.log(tempJoursDiv[m]);
-      tempJoursDiv[m].innerText = `${Math.trunc(
-        weatherData.daily[m + 1].temp.day
-      )}°`;
-    }
+    // for (let i = 0; i < heure.length; i++) {
+    //   let heureIncr = heureActuelle + i
 
-    // Icon meteo dynamique
+    //   if (heureIncr > 24) {
+    //     heure[i].innerText = `${heureIncr - 24} h`
+    //   } else if (heureIncr === 24) {
+    //     heure[i].innerText = '00 h'
+    //   } else {
+    //     heure[i].innerText = `${heureIncr} h`
+    //   }
+    // }
 
-    if (heureActuelle >= 6 && heureActuelle < 21) {
-      console.log(imgIcone);
-      imgIcone.src = `./ressources/jour/${weatherData.current.weather[0].icon}.svg`;
-    } else {
-      imgIcone.src = `./ressources/nuit/${weatherData.current.weather[0].icon}.svg`;
-    }
+    // // temperatures par tranche de 1h
+    // for (let j = 0; j < temperatureHeures.length; j++) {
+    //   temperatureHeures[j].innerText = `${Math.trunc(
+    //     weatherData.hourly[j * 1].temp
+    //   )}°`
+    // }
 
-    // Icon meteo dynamique par heure
+    // // Trois premieres lettres des jours
+    // for (let k = 0; k < tabJoursEnOdre.length - 1; k++) {
+    //   //console.log(k, joursDiv[k]);
+    //   joursDiv[k].innerText = tabJoursEnOdre[k].slice(0, 3)
+    // }
 
-    if (heureActuelle >= 6 && heureActuelle < 21) {
-      imgIconesHours.src = `./ressources/jour/${weatherData.hourly.weather[0].icon}.svg`;
-    } else {
-      imgIconesHours.src = `./ressources/nuit/${weatherData.hourly.weather[0].icon}.svg`;
-    }
+    // //Temp par jours
 
-    // Icon meteo dynamique par jours
+    // for (let m = 0; m < 6; m++) {
+    //   //console.log(tempJoursDiv[m]);
+    //   tempJoursDiv[m].innerText = `${Math.trunc(
+    //     weatherData.daily[m + 1].temp.day
+    //   )}°`
+    // }
 
-    if (heureActuelle >= 6 && heureActuelle < 21) {
-      imgIconesDaily.src = `./ressources/jour/${weatherData.daily.weather[0].icon}.svg`;
-    } else {
-      imgIconesDaily.src = `./ressources/nuit/${weatherData.daily.weather[0].icon}.svg`;
-    }
+    // // Icon meteo dynamique
+
+    // if (heureActuelle >= 6 && heureActuelle < 21) {
+    //   imgIcone.src = `./ressources/jour/${weatherData.current.weather[0].icon}.svg`
+    // } else {
+    //   imgIcone.src = `./ressources/nuit/${weatherData.current.weather[0].icon}.svg`
+    // }
+
+    // // Icon meteo dynamique par heure
+
+    // if (heureActuelle >= 6 && heureActuelle < 21) {
+    //   imgIconesHours.src = `./ressources/jour/${weatherData.hourly.weather[0].icon}.svg`
+    // } else {
+    //   imgIconesHours.src = `./ressources/nuit/${weatherData.hourly.weather[0].icon}.svg`
+    // }
+
+    // // Icon meteo dynamique par jours
+
+    // if (heureActuelle >= 6 && heureActuelle < 21) {
+    //   imgIconesDaily.src = `./ressources/jour/${weatherData.daily.weather[0].icon}.svg`
+    // } else {
+    //   imgIconesDaily.src = `./ressources/nuit/${weatherData.daily.weather[0].icon}.svg`
+    // }
+    console.log(templateClone);
+    main.replaceChildren(templateClone);
 
     // fond appli meteo dynamique
     //if (heureActuelle >= 5 && heureActuelle < 8) {
