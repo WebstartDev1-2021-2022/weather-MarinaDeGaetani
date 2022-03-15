@@ -11,7 +11,7 @@
     {
       "src": "ressources/meteo-icon.png",
 
-      "type": "image/svg+xml",
+      "type": "image/png",
 
       "sizes": "512x512"
     },
@@ -21,7 +21,7 @@
 
       "sizes": "192x192",
 
-      "type": "image/jpeg"
+      "type": "image/png"
     },
 
     {
@@ -29,7 +29,7 @@
 
       "sizes": "512x512",
 
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ],
 
