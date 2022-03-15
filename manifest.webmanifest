@@ -7,13 +7,31 @@
 
   "display": "fullscreen",
 
-  "icons": {
-    "src": "ressources/meteo-icon.svg",
+  "icons": [
+    {
+      "src": "ressources/meteo-icon.png",
 
-    "type": "image/svg+xml",
+      "type": "image/svg+xml",
 
-    "sizes": "512x512"
-  },
+      "sizes": "512x512"
+    },
+
+    {
+      "src": "ressources/meteo-icon.png",
+
+      "sizes": "192x192",
+
+      "type": "image/jpeg"
+    },
+
+    {
+      "src": "ressources/meteo-icon.png",
+
+      "sizes": "512x512",
+
+      "type": "image/jpeg"
+    }
+  ],
 
   "name": "Ma météo",
 
