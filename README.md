@@ -1,3 +1,5 @@
 ﻿# weather-MarinaDeGaetani
 
-liens netlify: weatherappmdg.netlify.app ;
+liens netlify: https://weatherappmdg.netlify.app
+
+
